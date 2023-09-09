@@ -9,7 +9,7 @@ import { cards, projects } from "../../data";
 
 function Home() {
   return (
-    <div className="home">
+    <div className="home" >
       <Featured />
       <TrustedBy />
       <Slide slidesToShow={5} arrowsScroll={5}>

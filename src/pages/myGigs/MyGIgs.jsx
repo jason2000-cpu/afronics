@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import "./MyGigs.scss";
+import usersData from "../../../userData";
 
 function MyGigs() {
   const currentUser = {
@@ -8,6 +9,28 @@ function MyGigs() {
     username: "Silas",
     isSeller: true,
   };
+
+  const [userJobs, setUserJobs] = useState([]);
+  const [isLoading, setIsLoading]= useState(true);
+
+  const delay = (ms) => new Promise((resolve)=> { setTimeout(resolve, ms)})
+
+  useEffect(()=> {
+    try{
+      delay(2000).then(()=>{
+        setUserJobs(usersData[0].jobs)
+        setIsLoading(false);
+        console.log(userJobs)
+      })
+    } catch(err){
+      console.log("An Error Occured", err)
+    }
+
+  }, [userJobs])
+
+  if(isLoading === true) {
+     return <h1 style={{height: "20rem", display: "flex", justifyContent: "center", alignItems: "center"}}>LOADING......</h1>
+  }
 
   return (
     <div className="myGigs">
@@ -28,96 +51,24 @@ function MyGigs() {
             <th>Sales</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning concept art</td>
-            <td>Ksh. 5,900</td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Ai generated concept art</td>
-            <td>Ksh. 12,000</td>
-            <td>41</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>High quality digital character</td>
-            <td>Ksh.7,900</td>
-            <td>55</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Illustration hyper realistic painting</td>
-            <td>Ksh. 11,900</td>
-            <td>29</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Original ai generated digital art</td>
-            <td>Ksh. 5,900</td>
-            <td>34</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Text based ai generated art</td>
-            <td>Ksh. 11,000</td>
-            <td>16</td>
-            <td>
-              <img className="delete" src="./img/delete.png" alt="" />
-            </td>
-          </tr>
+          { userJobs.map((job)=> {
+            return (
+              <tr key={job.id}>
+                <td>
+                  <img 
+                    src={job.image}
+                    alt={job.title}
+                    />
+                </td>
+                <td>{job.title}</td>
+                <td>{job.price}</td>
+                <td>{job.sales}</td>
+                <td>
+                  <img className="delete" src="./img/delete.png" alt="delete"/>
+                </td>
+              </tr>
+            )
+          })}
         </table>
       </div>
     </div>

@@ -6,7 +6,7 @@
     color: white;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 1;
     transition: 0.5s all ease;
 
     &.active {
@@ -24,7 +24,7 @@
         width: 1400px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
         padding: 20px 0px;
 
         .logo {

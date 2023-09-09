@@ -19,13 +19,13 @@ function Navbar() {
     };
   }, []);
 
-  // const currentUser = null
+  const currentUser = null
 
-  const currentUser = {
-    id: 1,
-    username: "Silas",
-    isSeller: true,
-  };
+  // const currentUser = {
+  //   id: 1,
+  //   username: "Silas",
+  //   isSeller: true,
+  // };
 
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
